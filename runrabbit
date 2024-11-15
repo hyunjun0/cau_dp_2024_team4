@@ -1,0 +1,10 @@
+#!/bin/bash
+CP=src/engine/bin/:src/render/bin/:src/ui-text/bin/:src/ui-swing/bin/
+if [ "$1" == "swing" ]
+    then
+    # shift drops the first arg, "swing". $@ passes the rest on.
+    shift
+    java -cp $CP rabbitescape.ui.swing.SwingMain "$@"
+else
+    java -cp $CP rabbitescape.ui.text.TextMain "$@"
+fi

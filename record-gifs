@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Records some animations of rabbits to make into animated gifs.
+
+# Prerequisites:
+# sudo apt-get install wmctrl byzanz ffmpeg
+
+
+function record_level()
+{
+    LEV="$1"
+    X="$2"
+    Y="$3"
+    WIDTH="$4"
+    HEIGHT="$5"
+    DELAY="$6"
+    DURATION="$7"
+
+    LEVELS="src/engine/src/rabbitescape/levels/gifs"
+
+    mkdir -p bin/gifs
+
+    ./record-level \
+        "${LEVELS}/${LEV}.rel" \
+        "${DURATION}" \
+        "bin/gifs/${LEV}.gif" \
+        50 50 1024 768 \
+        "$X" "$Y" "${WIDTH}" "${HEIGHT}" \
+        "${DELAY}"
+}
+
+record_level bridge_to_fire 292 370 512 380 4 10

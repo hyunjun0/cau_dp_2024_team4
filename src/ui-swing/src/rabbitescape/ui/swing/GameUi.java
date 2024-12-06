@@ -217,7 +217,9 @@ public class GameUi implements StatsChangedListener
     public int scrollY;
     public int zoomIndex;
 
-    public GameUi(
+    private static GameUi uniqueInstance;
+    
+    private GameUi(
         Config uiConfig,
         BitmapCache<SwingBitmap> bitmapCache,
         MainJFrame frame,
@@ -248,6 +250,13 @@ public class GameUi implements StatsChangedListener
         this.menu = null;
         this.topBar = null;
     }
+
+    public static GameUi getInstance( Config uiConfig, BitmapCache<SwingBitmap> bitmapCache, MainJFrame frame, MenuUi menuUi ) {
+	if (uniqueInstance == null) {
+	    uniqueInstance = new GameUi(uiConfig, bitmapCache, frame, menuUi);
+    	    }
+    	    return uniqueInstance;
+    	}
 
     private Canvas initUi()
     {

@@ -75,7 +75,7 @@ public class SwingGameInit implements Runnable
     public void run()
     {
         //noinspection UnnecessaryLocalVariable
-        GameUi jframe = new GameUi( uiConfig, bitmapCache, frame, menuUi );
+        GameUi jframe = GameUi.getInstance( uiConfig, bitmapCache, frame, menuUi );
 
         // Populate the cache with images in a worker thread?
 

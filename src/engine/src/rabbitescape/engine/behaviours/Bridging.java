@@ -447,13 +447,11 @@ public class Bridging extends Behaviour
             {
                 rabbit.x++;
                 world.changes.addBlock(
-                    new Block(
-                        rabbit.x,
-                        rabbit.y,
-                        EARTH,
-                        BRIDGE_UP_RIGHT,
-                        0
-                    )
+                    new Block.BuilderBlock()
+                    .setPosition(rabbit.x, rabbit.y)
+                    .setMaterial(Block.Material.EARTH)
+                    .setShape(Block.Shape.BRIDGE_UP_RIGHT)
+                    .build()
                 );
 
                 return true;
@@ -463,13 +461,11 @@ public class Bridging extends Behaviour
             {
                 rabbit.x--;
                 world.changes.addBlock(
-                    new Block(
-                        rabbit.x,
-                        rabbit.y,
-                        EARTH,
-                        BRIDGE_UP_LEFT,
-                        0
-                    )
+                    new Block.BuilderBlock()
+                    .setPosition(rabbit.x, rabbit.y)
+                    .setMaterial(Block.Material.EARTH)
+                    .setShape(Block.Shape.BRIDGE_UP_LEFT)
+                    .build()
                 );
 
                 return true;
@@ -479,13 +475,11 @@ public class Bridging extends Behaviour
                 rabbit.x++;
                 rabbit.y--;
                 world.changes.addBlock(
-                    new Block(
-                        rabbit.x,
-                        rabbit.y,
-                        EARTH,
-                        BRIDGE_UP_RIGHT,
-                        0
-                    )
+                    new Block.BuilderBlock()
+                    .setPosition(rabbit.x, rabbit.y)
+                    .setMaterial(Block.Material.EARTH)
+                    .setShape(Block.Shape.BRIDGE_UP_RIGHT)
+                    .build()
                 );
 
                 return true;
@@ -495,13 +489,11 @@ public class Bridging extends Behaviour
                 rabbit.x--;
                 rabbit.y--;
                 world.changes.addBlock(
-                    new Block(
-                        rabbit.x,
-                        rabbit.y,
-                        EARTH,
-                        BRIDGE_UP_LEFT,
-                        0
-                    )
+                    new Block.BuilderBlock()
+                    .setPosition(rabbit.x, rabbit.y)
+                    .setMaterial(Block.Material.EARTH)
+                    .setShape(Block.Shape.BRIDGE_UP_LEFT)
+                    .build()
                 );
 
                 return true;
@@ -510,13 +502,11 @@ public class Bridging extends Behaviour
             {
                 rabbit.onSlope = true;
                 world.changes.addBlock(
-                    new Block(
-                        rabbit.x,
-                        rabbit.y,
-                        EARTH,
-                        BRIDGE_UP_RIGHT,
-                        0
-                    )
+                    new Block.BuilderBlock()
+                    .setPosition(rabbit.x, rabbit.y)
+                    .setMaterial(Block.Material.EARTH)
+                    .setShape(Block.Shape.BRIDGE_UP_RIGHT)
+                    .build()
                 );
                 return true;
             }
@@ -524,13 +514,11 @@ public class Bridging extends Behaviour
             {
                 rabbit.onSlope = true;
                 world.changes.addBlock(
-                    new Block(
-                        rabbit.x,
-                        rabbit.y,
-                        EARTH,
-                        BRIDGE_UP_LEFT,
-                        0
-                    )
+                    new Block.BuilderBlock()
+                    .setPosition(rabbit.x, rabbit.y)
+                    .setMaterial(Block.Material.EARTH)
+                    .setShape(Block.Shape.BRIDGE_UP_LEFT)
+                    .build()
                 );
                 return true;
             }
@@ -539,13 +527,11 @@ public class Bridging extends Behaviour
                 rabbit.onSlope = true;
                 rabbit.y--;
                 world.changes.addBlock(
-                    new Block(
-                        rabbit.x,
-                        rabbit.y,
-                        EARTH,
-                        BRIDGE_UP_RIGHT,
-                        0
-                    )
+                    new Block.BuilderBlock()
+                    .setPosition(rabbit.x, rabbit.y)
+                    .setMaterial(Block.Material.EARTH)
+                    .setShape(Block.Shape.BRIDGE_UP_RIGHT)
+                    .build()
                 );
                 return true;
             }
@@ -554,13 +540,11 @@ public class Bridging extends Behaviour
                 rabbit.onSlope = true;
                 rabbit.y--;
                 world.changes.addBlock(
-                    new Block(
-                        rabbit.x,
-                        rabbit.y,
-                        EARTH,
-                        BRIDGE_UP_LEFT,
-                        0
-                    )
+                    new Block.BuilderBlock()
+                    .setPosition(rabbit.x, rabbit.y)
+                    .setMaterial(Block.Material.EARTH)
+                    .setShape(Block.Shape.BRIDGE_UP_LEFT)
+                    .build()
                 );
                 return true;
             }

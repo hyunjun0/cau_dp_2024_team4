@@ -27,13 +27,49 @@ public class Block implements LookupItem2D
     public final Shape shape;
     public final int variant;
 
-    public Block( int x, int y, Material material, Shape shape, int variant )
+    private Block(BuilderBlock builder)
     {
-        this.x = x;
-        this.y = y;
-        this.material = material;
-        this.shape = shape;
-        this.variant = variant;
+        this.x = builder.x;
+        this.y = builder.y;
+        this.material = builder.material;
+        this.shape = builder.shape;
+        this.variant = builder.variant;
+    }
+    
+    public static class BuilderBlock {
+    	private int x;
+    	private int y;
+    	private Material material;
+    	private Shape shape;
+    	private int variant = 0;
+    	
+    	public BuilderBlock setPosition(int x, int y) {
+    	    this.x = x;
+    	    this.y = y;
+    	    return this;
+    	}
+    	
+    	public BuilderBlock setMaterial(Material material) {
+    	    this.material = material;
+    	    return this;
+    	}
+    	
+    	public BuilderBlock setShape(Shape shape) {
+    	    this.shape = shape;
+    	    return this;
+    	}
+    	
+    	public BuilderBlock setVariant(int variant) {
+    	    this.variant = variant;
+    	    return this;
+    	}
+    	
+    	public Block build() {
+    	    if (shape == null || material == null) {
+    	        throw new RuntimeException( "Unknown block create " + shape );
+    	}
+    	return new Block(this);
+    	}
     }
 
     public Direction riseDir()

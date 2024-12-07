@@ -35,9 +35,27 @@ public class TestWaterRegionFactory
     @Test
     public void Generate_water_table()
     {
-        Block block = new Block( 0, 0, Material.EARTH, Shape.FLAT, 0 );
-        Block leftRamp = new Block( 0, 1, Material.EARTH, Shape.UP_LEFT, 0 );
-        Block rightRamp = new Block( 1, 0, Material.EARTH, Shape.UP_RIGHT, 0 );
+        Block block =
+        new Block.BuilderBlock()
+    	.setPosition(0, 0)
+    	.setMaterial(Block.Material.EARTH)
+    	.setShape(Shape.FLAT)
+    	.build();
+    	
+        Block leftRamp =
+ 	new Block.BuilderBlock()
+    	.setPosition(0, 1)
+    	.setMaterial(Block.Material.EARTH)
+    	.setShape(Shape.UP_LEFT)
+    	.build();
+
+        Block rightRamp =
+        new Block.BuilderBlock()
+    	.setPosition(1, 0)
+    	.setMaterial(Block.Material.EARTH)
+    	.setShape(Shape.UP_RIGHT)
+    	.build();
+    	
         List<Block> blocks = Arrays.asList( block , leftRamp, rightRamp );
         LookupTable2D<Block> blockTable = new LookupTable2D<>( blocks , new Dimension( 2, 2 ) );
 

@@ -510,37 +510,71 @@ public class LineProcessor
             case '#':
             {
                 blocks.add(
-                    new Block( x, y, EARTH, FLAT, variantGen.next( 4 ) ) );
+                    new Block.BuilderBlock()
+                    .setPosition(x, y)
+                    .setMaterial(Block.Material.EARTH)
+                    .setShape(Block.Shape.FLAT)
+                    .setVariant(variantGen.next( 4 ))
+                    .build()
+                    );
                 break;
             }
             case 'M':
             {
                 blocks.add(
-                    new Block( x, y, METAL, FLAT, variantGen.next( 4 ) ) );
+                    new Block.BuilderBlock()
+                    .setPosition(x, y)
+                    .setMaterial(Block.Material.METAL)
+                    .setShape(Block.Shape.FLAT)
+                    .setVariant(variantGen.next( 4 ))
+                    .build()
+                   );
                 break;
             }
             case '/':
             {
                 blocks.add(
-                    new Block( x, y, EARTH, UP_RIGHT, variantGen.next( 4 ) ) );
+                    new Block.BuilderBlock()
+                    .setPosition(x, y)
+                    .setMaterial(Block.Material.EARTH)
+                    .setShape(Block.Shape.UP_RIGHT)
+                    .setVariant(variantGen.next( 4 ))
+                    .build()
+                    );
                 break;
             }
             case '\\':
             {
                 blocks.add(
-                    new Block( x, y, EARTH, UP_LEFT, variantGen.next( 4 ) ) );
+                    new Block.BuilderBlock()
+                    .setPosition(x, y)
+                    .setMaterial(Block.Material.EARTH)
+                    .setShape(Block.Shape.UP_LEFT)
+                    .setVariant(variantGen.next( 4 ))
+                    .build()
+                    );
                 break;
             }
             case '(':
             {
                 blocks.add(
-                    new Block( x, y, EARTH, BRIDGE_UP_RIGHT, 0 ) );
+                    new Block.BuilderBlock()
+                    .setPosition(x, y)
+                    .setMaterial(Block.Material.EARTH)
+                    .setShape(Block.Shape.BRIDGE_UP_RIGHT)
+                    .build()
+                    );
                 break;
             }
             case ')':
             {
                 blocks.add(
-                    new Block( x, y, EARTH, BRIDGE_UP_LEFT, 0 ) );
+                    new Block.BuilderBlock()
+                    .setPosition(x, y)
+                    .setMaterial(Block.Material.EARTH)
+                    .setShape(Block.Shape.BRIDGE_UP_LEFT)
+                    .build()
+                    );
                 break;
             }
             case 'r':

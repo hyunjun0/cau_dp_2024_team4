@@ -143,7 +143,12 @@ public class TestWorldChanges
         world.changes.killRabbit( rabbit2 );
         world.changes.addToken( 2, 1, Token.Type.bash );
         world.changes.removeToken( tok0 );
-        world.changes.addBlock( new Block( 1, 1, Block.Material.EARTH, Shape.FLAT, 0 ) );
+        world.changes.addBlock( 
+            new Block.BuilderBlock()
+            .setPosition(1, 1)
+            .setMaterial(Block.Material.EARTH)
+            .setShape(Block.Shape.FLAT)
+	    .build() );
         world.changes.removeBlockAt( 0, 0 );
 
         // This is what we are testing - revert the changes

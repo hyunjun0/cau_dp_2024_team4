@@ -2,13 +2,10 @@ package rabbitescape.engine;
 
 import static rabbitescape.engine.ChangeDescription.State.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.behaviours.*;
 
 public class Rabbit extends Thing implements Comparable<Rabbit>
 {
@@ -19,12 +16,9 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
     }
 
     public final static int NOT_INDEXED = 0;
-    private final List<Behaviour> behaviours;
-    private final List<Behaviour> behavioursTriggerOrder;
+    private final RabbitBehaviourManager behaviourManager;
 
     public int index;
-
-    private Falling falling;
 
     public Direction dir;
     public boolean onSlope;
@@ -39,79 +33,24 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
         this.dir = dir;
         this.onSlope = false;
         this.type = type;
-        behaviours = new ArrayList<>();
-        behavioursTriggerOrder = new ArrayList<>();
-        createBehaviours();
         index = NOT_INDEXED;
-    }
-
-    private void createBehaviours()
-    {
-        Climbing climbing = new Climbing();
-        Digging digging = new Digging();
-        Exploding exploding = new Exploding();
-        Burning burning = new Burning();
-        OutOfBounds outOfBounds = new OutOfBounds();
-        Drowning drowning = new Drowning();
-        Exiting exiting = new Exiting();
-        Brollychuting brollychuting = new Brollychuting( climbing, digging );
-        falling = new Falling( climbing, brollychuting, getFatalHeight() );
-        Bashing bashing = new Bashing();
-        Bridging bridging = new Bridging();
-        Blocking blocking = new Blocking();
-        Walking walking = new Walking();
-        RabbotCrash rabbotCrash = new RabbotCrash();
-        RabbotWait rabbotWait = new RabbotWait();
-
-        behavioursTriggerOrder.add( exploding );
-        behavioursTriggerOrder.add( outOfBounds );
-        behavioursTriggerOrder.add( burning );
-        behavioursTriggerOrder.add( drowning );
-        behavioursTriggerOrder.add( rabbotCrash );
-        behavioursTriggerOrder.add( falling );
-        behavioursTriggerOrder.add( exiting );
-        behavioursTriggerOrder.add( brollychuting );
-        behavioursTriggerOrder.add( climbing );
-        behavioursTriggerOrder.add( bashing );
-        behavioursTriggerOrder.add( digging );
-        behavioursTriggerOrder.add( bridging );
-        behavioursTriggerOrder.add( blocking );
-        behavioursTriggerOrder.add( rabbotWait );
-        behavioursTriggerOrder.add( walking );
-
-        behaviours.add( exploding );
-        behaviours.add( outOfBounds );
-        behaviours.add( burning );
-        behaviours.add( drowning );
-        behaviours.add( rabbotCrash );
-        behaviours.add( falling );
-        behaviours.add( exiting );
-        behaviours.add( brollychuting );
-        behaviours.add( bashing );
-        behaviours.add( digging );
-        behaviours.add( bridging );
-        behaviours.add( blocking );
-        behaviours.add( climbing );
-        behaviours.add( rabbotWait );
-        behaviours.add( walking );
-
-        assert behavioursTriggerOrder.size() == behaviours.size();
+        behaviourManager = new RabbitBehaviourManager(getFatalHeight());
     }
 
     public boolean isFallingToDeath()
     {
-        return falling.isFallingToDeath();
+        return behaviourManager.falling.isFallingToDeath();
     }
 
     @Override
     public void calcNewState( World world )
     {
-        for ( Behaviour behaviour : behavioursTriggerOrder )
+        for ( Behaviour behaviour : behaviourManager.behavioursTriggerOrder )
         {
             behaviour.triggered = false;
         }
 
-        for ( Behaviour behaviour : behavioursTriggerOrder )
+        for ( Behaviour behaviour : behaviourManager.behavioursTriggerOrder )
         {
             behaviour.triggered = behaviour.checkTriggered( this, world );
             if ( behaviour.triggered )
@@ -121,7 +60,7 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
         }
 
         boolean done = false;
-        for ( Behaviour behaviour : behaviours )
+        for ( Behaviour behaviour : behaviourManager.behaviours )
         {
 
             State thisState = behaviour.newState(
@@ -138,7 +77,7 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
 
     private void cancelAllBehavioursExcept( Behaviour exception )
     {
-        for ( Behaviour behaviour : behaviours )
+        for ( Behaviour behaviour : behaviourManager.behaviours )
         {
             if ( behaviour != exception )
             {
@@ -166,7 +105,7 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
     @Override
     public void step( World world )
     {
-        for ( Behaviour behaviour : behaviours )
+        for ( Behaviour behaviour : behaviourManager.behaviours )
         {
             boolean handled = behaviour.behave( world, this, state );
             if ( handled )
@@ -188,7 +127,7 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
         BehaviourState.addToStateIfGtZero( ret, "index", index );
         BehaviourState.addToStateIfTrue( ret, "onSlope", onSlope );
 
-        for ( Behaviour behaviour : behaviours )
+        for ( Behaviour behaviour : behaviourManager.behaviours )
         {
             behaviour.saveState( ret );
         }
@@ -205,7 +144,7 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
             state, "onSlope", false
         );
 
-        for ( Behaviour behaviour : behaviours )
+        for ( Behaviour behaviour : behaviourManager.behaviours )
         {
             behaviour.restoreFromState( state );
         }
